@@ -12,7 +12,6 @@ import {
   Award,
 } from 'lucide-react';
 import { MockTest } from '../types';
-import { GoogleAdUnit } from './GoogleAdUnit';
 
 interface MockTestModalProps {
   test: MockTest;
@@ -166,15 +165,6 @@ export const MockTestModal: React.FC<MockTestModalProps> = ({
                   </div>
                   <div className="text-[11px] text-slate-500 font-semibold">Accuracy</div>
                 </div>
-              </div>
-
-              {/* Sponsored Recommended Test Series & Mentorship Ad */}
-              <div className="pt-2">
-                <GoogleAdUnit
-                  formatType="in-article"
-                  adSlot="4910294827"
-                  label="SPONSORED CIVIL SERVICES RANK BOOSTER & CRASH COURSE"
-                />
               </div>
             </div>
           )}

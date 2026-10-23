@@ -20,7 +20,6 @@ import {
   Share2,
 } from 'lucide-react';
 import { SubTopic } from '../types';
-import { GoogleAdUnit } from './GoogleAdUnit';
 
 interface VideoLectureViewerProps {
   subtopic: SubTopic;
@@ -317,13 +316,6 @@ export const VideoLectureViewer: React.FC<VideoLectureViewerProps> = ({
             </div>
           </div>
         )}
-
-        {/* High-Yield In-Article Google AdSense Unit */}
-        <GoogleAdUnit
-          formatType="in-article"
-          adSlot="7194820194"
-          label="SPONSORED CIVIL SERVICES RESOURCE • GOOGLE ADS"
-        />
 
         {/* 10-Point Rapid Revision Digest */}
         {(activeViewMode === 'revision-10' || activeViewMode === 'comprehensive') && (

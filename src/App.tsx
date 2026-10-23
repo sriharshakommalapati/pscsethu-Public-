@@ -8,7 +8,7 @@ import { PersonalDashboard } from './components/PersonalDashboard';
 import { NotesRepositoryView } from './components/NotesRepositoryView';
 import { MockTestModal } from './components/MockTestModal';
 import { SearchModal } from './components/SearchModal';
-import { GoogleAdUnit } from './components/GoogleAdUnit';
+import { CommercialAdSidePanel } from './components/CommercialAdSidePanel';
 import { COMMISSIONS } from './data/commissions';
 import { MOCK_TESTS } from './data/mockTests';
 import {
@@ -27,6 +27,12 @@ export function App() {
   const [communityNotes, setCommunityNotes] = useState<CommunityNote[]>(loadCommunityNotes);
   const [activeMockTest, setActiveMockTest] = useState<MockTest | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('bharatpsc_sidepanel_open') !== 'false';
+    }
+    return true;
+  });
 
   // Sync userProgress to LocalStorage on change
   useEffect(() => {
@@ -190,17 +196,10 @@ export function App() {
         onOpenSearch={() => setIsSearchOpen(true)}
       />
 
-      {/* Global Google AdSense Top Leaderboard Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-2">
-        <GoogleAdUnit
-          formatType="leaderboard"
-          adSlot="1029384756"
-          label="SPONSORED CIVIL SERVICES HUB • GOOGLE ADS"
-        />
-      </div>
-
-      {/* Main Page Content Body */}
-      <main className="flex-1 pb-20">
+      {/* Main Layout: Main Content & Options with Dedicated Ads Side Panel */}
+      <div className="max-w-[1600px] w-full mx-auto px-3 sm:px-6 py-4 flex flex-col lg:flex-row gap-6 items-start">
+        {/* Main Page Content Body */}
+        <main className="flex-1 min-w-0 w-full pb-16">
         {activeTab === 'home' && (
           <HomePage
             onSelectCommission={handleSelectCommission}
@@ -316,7 +315,24 @@ export function App() {
             </div>
           </div>
         )}
-      </main>
+        </main>
+
+        {/* Dedicated Commercial Ads Side Panel */}
+        <aside className="shrink-0 w-full lg:w-auto">
+          <CommercialAdSidePanel
+            isOpen={isSidePanelOpen}
+            onToggle={() => {
+              setIsSidePanelOpen((prev) => {
+                const next = !prev;
+                if (typeof window !== 'undefined') {
+                  localStorage.setItem('bharatpsc_sidepanel_open', String(next));
+                }
+                return next;
+              });
+            }}
+          />
+        </aside>
+      </div>
 
       {/* Interactive Mock Test Simulator Modal */}
       {activeMockTest && (
@@ -501,13 +517,6 @@ export function App() {
           </div>
         </div>
       </footer>
-
-      {/* Google AdSense Sticky Anchor Bottom Ad */}
-      <GoogleAdUnit
-        formatType="anchor-bottom"
-        adSlot="9928172635"
-        label="SPONSORED BY GOOGLE"
-      />
     </div>
   );
 }

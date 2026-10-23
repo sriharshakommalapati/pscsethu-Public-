@@ -22,7 +22,6 @@ import { UserStudyProgress, SubTopic, PreviousYearPaper, CommunityNote } from '.
 import { COMMISSIONS } from '../data/commissions';
 import { CURATED_SUBJECTS } from '../data/curatedLectures';
 import { PREVIOUS_YEAR_PAPERS } from '../data/previousYearPapers';
-import { GoogleAdUnit } from './GoogleAdUnit';
 
 interface PersonalDashboardProps {
   progress: UserStudyProgress;
@@ -587,14 +586,6 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({
           )}
         </div>
       )}
-      {/* In-Dashboard High Yield Google Ad Unit */}
-      <div className="pt-4">
-        <GoogleAdUnit
-          formatType="in-article"
-          adSlot="4920194837"
-          label="SPONSORED BY GOOGLE ADS • ASPIRANTS NETWORK"
-        />
-      </div>
     </div>
   );
 };

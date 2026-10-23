@@ -18,7 +18,6 @@ import {
 import { COMMISSIONS, COMMISSION_ZONES } from '../data/commissions';
 import { Commission } from '../types';
 import { EXAM_DATES } from '../data/examDates';
-import { GoogleAdUnit } from './GoogleAdUnit';
 
 interface HomePageProps {
   onSelectCommission: (commissionId: string) => void;
@@ -58,14 +57,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-      {/* Top Billboard / Leaderboard Google Ad */}
-      <GoogleAdUnit
-        formatType="leaderboard"
-        adSlot="2948102948"
-        label="SPONSORED CIVIL SERVICES PREPARATION & ALL-INDIA MOCK TESTS • GOOGLE ADS"
-      />
-
+    <div className="w-full space-y-8">
       {/* Hero Section */}
       <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 border border-slate-800 text-white shadow-2xl p-6 sm:p-10 lg:p-12">
         {/* Subtle Decorative Background Glow */}
@@ -128,13 +120,6 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Google AdSense Leaderboard Placement 1 */}
-      <GoogleAdUnit
-        formatType="leaderboard"
-        adSlot="2938475610"
-        label="SPONSORED CIVIL SERVICES PREPARATION • GOOGLE ADS"
-      />
 
       {/* THREE PROMINENT FLAGSHIP COMMISSIONS: UPSC, APPSC, TGSPC */}
       <div>
@@ -239,13 +224,6 @@ export const HomePage: React.FC<HomePageProps> = ({
             ))}
           </div>
         </div>
-
-        {/* Native In-Feed Sponsored Placement */}
-        <GoogleAdUnit
-          formatType="in-feed"
-          adSlot="3847561920"
-          label="SPONSORED STATE PSC COACHING & TEST SERIES"
-        />
 
         {/* Commission Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">

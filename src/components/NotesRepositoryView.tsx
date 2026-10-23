@@ -20,7 +20,6 @@ import {
 } from 'lucide-react';
 import { CommunityNote } from '../types';
 import { COMMISSIONS } from '../data/commissions';
-import { GoogleAdUnit } from './GoogleAdUnit';
 
 interface NotesRepositoryViewProps {
   notes: CommunityNote[];
@@ -219,13 +218,6 @@ export const NotesRepositoryView: React.FC<NotesRepositoryViewProps> = ({
         </div>
       </div>
 
-      {/* Google AdSense Sponsored Faculty & UPSC Material */}
-      <GoogleAdUnit
-        formatType="leaderboard"
-        adSlot="8192039485"
-        label="SPONSORED CIVIL SERVICES FACULTY PUBLICATIONS • GOOGLE ADS"
-      />
-
       {/* Notes Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {filteredNotes.map((note, idx) => {
@@ -233,19 +225,10 @@ export const NotesRepositoryView: React.FC<NotesRepositoryViewProps> = ({
           const isProfessor = note.authorRole === 'Professor' || note.authorRole === 'Subject Expert';
 
           return (
-            <React.Fragment key={note.id}>
-              {idx === 2 && (
-                <div className="col-span-full">
-                  <GoogleAdUnit
-                    formatType="in-feed"
-                    adSlot="9201847582"
-                    label="SPONSORED TOPPER NOTES & ANSWER KEYS • GOOGLE ADS"
-                  />
-                </div>
-              )}
-              <div
-                className="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group"
-              >
+            <div
+              key={note.id}
+              className="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group"
+            >
               <div className="p-6">
                 {/* Author & Header info */}
                 <div className="flex items-start justify-between gap-3 mb-4">
@@ -373,7 +356,6 @@ export const NotesRepositoryView: React.FC<NotesRepositoryViewProps> = ({
                 </div>
               </div>
             </div>
-            </React.Fragment>
           );
         })}
       </div>

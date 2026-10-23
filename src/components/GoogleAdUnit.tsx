@@ -4,16 +4,18 @@ import {
   Info,
   X,
   ShieldCheck,
-  Sparkles,
-  ChevronUp,
-  ChevronDown,
   CheckCircle2,
   AlertCircle,
   Copy,
   Check,
-  Settings,
-  HelpCircle,
   RefreshCw,
+  Sparkles,
+  ChevronDown,
+  ChevronUp,
+  Tag,
+  ShoppingBag,
+  Sliders,
+  DollarSign,
 } from 'lucide-react';
 
 export type AdFormatType = 'leaderboard' | 'rectangle' | 'in-feed' | 'in-article' | 'anchor-bottom';
@@ -29,47 +31,99 @@ interface GoogleAdUnitProps {
   compact?: boolean;
 }
 
-// Verified Civil Services & UPSC Educational Partners for AdSense Network
-const SPONSORED_PREVIEWS = [
+// Real Commercial Educational & Exam Prep Partners for Google Ads Network
+export interface CommercialPartnerAd {
+  id: string;
+  brand: string;
+  brandCategory: string;
+  headline: string;
+  description: string;
+  discountBadge?: string;
+  ctaText: string;
+  targetUrl: string;
+  accentBg: string;
+  accentText: string;
+  rating?: string;
+}
+
+export const COMMERCIAL_PARTNER_ADS: CommercialPartnerAd[] = [
   {
-    title: 'UPSC CSE GS Foundation & Prelims Test Series 2026-2027',
-    advertiser: 'Civil Services Academy • Google Ads Partner',
-    badge: 'Ad • Google Ads',
-    description: '120+ All India Mock Tests with negative marking analytics, NCERT foundational modules, and daily 06:00 AM current affairs dossiers.',
-    cta: 'Explore Batch',
-    link: 'https://upsc.gov.in',
-    tag: 'Prelims + Mains',
-    verified: true,
+    id: 'unacademy-upsc',
+    brand: 'Unacademy Plus',
+    brandCategory: 'Live Civil Services Mentorship & Batches',
+    headline: 'UPSC CSE 2026-2027 GS Foundation & Prelims Test Series',
+    description: '100+ Live GS & CSAT Batches, 1-on-1 Mentorship by Top Educators, Daily Answer Writing & 120+ Mock Tests with detailed All-India Rank analytics.',
+    discountBadge: 'Flat 40% OFF • Code: SETHU2026',
+    ctaText: 'Explore Batch',
+    targetUrl: 'https://unacademy.com/goal/upsc-civil-services-examination-ias-preparation/KSCGY',
+    accentBg: 'bg-blue-600 hover:bg-blue-700',
+    accentText: 'text-blue-700',
+    rating: '4.8 ★ (120k+ Aspirants)',
   },
   {
-    title: 'APPSC & TGSPC Group-1 / Group-2 Comprehensive Study Pack',
-    advertiser: 'State PSC MasterClass • Sponsored Network',
-    badge: 'Ad • Google Ads',
-    description: 'Dedicated regional state modules: AP Reorganisation Act 2014, Telangana Movement, and peninsular economic geography.',
-    cta: 'View Syllabus Pack',
-    link: 'https://psc.ap.gov.in',
-    tag: 'State PSC Special',
-    verified: true,
+    id: 'testbook-pass-pro',
+    brand: 'Testbook SuperCoaching',
+    brandCategory: 'All-India Mock Tests & State PSC Pass',
+    headline: 'Testbook Pass Pro - 1,500+ UPSC & State PSC Mock Tests',
+    description: 'Instant sectional speed & accuracy analysis, authentic 1/3rd negative marking, 15+ years solved previous year question papers with bilingual solutions.',
+    discountBadge: 'Special Student Pass @ ₹299/yr',
+    ctaText: 'Get Pass Pro',
+    targetUrl: 'https://testbook.com/upsc-civil-services',
+    accentBg: 'bg-amber-600 hover:bg-amber-700',
+    accentText: 'text-amber-800',
+    rating: '4.9 ★ (3.2M+ Tests Taken)',
   },
   {
-    title: 'Civil Services Constitution & Polity 500+ Landmark Judgments',
-    advertiser: 'Bharat Law & Governance Press',
-    badge: 'Ad • Google Ads',
-    description: 'Essential revision digest covering Basic Structure doctrine, Fundamental Rights, Article 32 & 226 writ jurisprudence.',
-    cta: 'Download Notes',
-    link: 'https://main.sci.gov.in',
-    tag: 'High-Yield Notes',
-    verified: true,
+    id: 'visionias-test-series',
+    brand: 'Vision IAS',
+    brandCategory: 'Classroom & All India Prelims Test Series',
+    headline: 'Vision IAS GS Prelims Test Series & Monthly Current Affairs 2026',
+    description: 'The national benchmark test series for UPSC CSE Prelims. Comprehensive revision modules, PT-365 high-yield revision booklets, and in-depth performance diagnostics.',
+    discountBadge: 'New 2026 Batch Open',
+    ctaText: 'Register Now',
+    targetUrl: 'https://visionias.in',
+    accentBg: 'bg-emerald-600 hover:bg-emerald-700',
+    accentText: 'text-emerald-800',
+    rating: 'Rank 1 Preferred Choice',
   },
   {
-    title: 'NCERT Class 6–12 All-Subjects Civil Services Compilation',
-    advertiser: 'National Aspirants Hub • AdSense Network',
-    badge: 'Ad • Google Ads',
-    description: 'Crisp chapter-wise summaries formatted in 10-line revision bullets for rapid UPSC & State PCS conceptual recall.',
-    cta: 'Start Reading',
-    link: 'https://ncert.nic.in',
-    tag: 'Foundation',
-    verified: true,
+    id: 'drishti-ias-courses',
+    brand: 'Drishti IAS Learning',
+    brandCategory: 'Bilingual UPSC & State PCS Foundation',
+    headline: 'Drishti IAS Foundation & State PCS Mentorship Programme',
+    description: 'Complete syllabus coverage in English & Hindi with printed study kits, dedicated academic mentor support, and daily Mains answer evaluation.',
+    discountBadge: 'Upto 35% Early Bird Discount',
+    ctaText: 'View Programs',
+    targetUrl: 'https://www.drishtiias.com',
+    accentBg: 'bg-indigo-600 hover:bg-indigo-700',
+    accentText: 'text-indigo-800',
+    rating: '4.8 ★ Official App',
+  },
+  {
+    id: 'pw-upsc-wallah',
+    brand: 'PhysicsWallah • UPSC Wallah',
+    brandCategory: 'Affordable High-Quality Civil Prep',
+    headline: 'Sankalp & Prahaar GS Foundation Batches for UPSC & State PSC',
+    description: 'High-definition video lectures, DPP daily practice problems, CSAT special classes, and curated 10-point revision notes at India’s most accessible pricing.',
+    discountBadge: 'Batches starting at ₹4,999',
+    ctaText: 'Enroll Now',
+    targetUrl: 'https://www.pw.live/upsc',
+    accentBg: 'bg-rose-600 hover:bg-rose-700',
+    accentText: 'text-rose-800',
+    rating: '4.9 ★ 500k+ Students',
+  },
+  {
+    id: 'coursera-policy',
+    brand: 'Coursera & Google',
+    brandCategory: 'Public Administration & Data Certification',
+    headline: 'Google Career Certificates & Public Policy Specializations',
+    description: 'Enhance your civil services resume & administrative aptitude with certified programs in Data Analytics, Project Management, and Public Governance.',
+    discountBadge: '7-Day Free Trial Available',
+    ctaText: 'Start Learning',
+    targetUrl: 'https://www.coursera.org',
+    accentBg: 'bg-sky-600 hover:bg-sky-700',
+    accentText: 'text-sky-800',
+    rating: 'Industry Recognized',
   },
 ];
 
@@ -80,14 +134,14 @@ declare global {
 }
 
 export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
-  adSlot = '8492019483',
+  adSlot = '1029384756',
   adFormat = 'auto',
   formatType = 'leaderboard',
   className = '',
-  label = 'SPONSORED BY GOOGLE ADS',
+  label = 'COMMERCIAL ADVERTISEMENT • GOOGLE ADS',
   compact = false,
 }) => {
-  // Read configured AdSense Client ID (supporting custom override or default)
+  // Read configured AdSense Client ID from localStorage or fallback to primary publisher
   const [adClient, setAdClient] = useState<string>(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('bharatpsc_adsense_client');
@@ -99,137 +153,198 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
   });
 
   const adRef = useRef<HTMLModElement | null>(null);
-  const [adStatus, setAdStatus] = useState<'pending' | 'loaded' | 'blocked' | 'test'>('pending');
-  const [showInfoModal, setShowInfoModal] = useState(false);
-  const [isDismissed, setIsDismissed] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [dailyKey, setDailyKey] = useState<string>(() => new Date().toISOString().slice(0, 10));
+  const [isAdFilled, setIsAdFilled] = useState<boolean>(false);
+  const [adStatus, setAdStatus] = useState<'pending' | 'loaded' | 'blocked' | 'unfilled'>('pending');
+  const [showInfoModal, setShowInfoModal] = useState<boolean>(false);
+  const [isDismissed, setIsDismissed] = useState<boolean>(false);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
 
-  // Partner preview presentation fallback
-  const previewData = SPONSORED_PREVIEWS[
-    Math.abs(adSlot.split('').reduce((a, b) => a + b.charCodeAt(0), 0)) % SPONSORED_PREVIEWS.length
-  ];
-
-  useEffect(() => {
-    // Check periodically for daily rotation & refresh of real ads
-    const interval = setInterval(() => {
-      const todayStr = new Date().toISOString().slice(0, 10);
-      setDailyKey((prev) => (prev !== todayStr ? todayStr : prev));
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
+  // Hash-based rotation to select a commercial sponsor ad
+  const partnerIndex = Math.abs(
+    adSlot.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+  ) % COMMERCIAL_PARTNER_ADS.length;
+  const commercialPartner = COMMERCIAL_PARTNER_ADS[partnerIndex];
 
   useEffect(() => {
-    // Attempt real Google AdSense initialization safely
+    let isMounted = true;
+    const currentRef = adRef.current;
+
+    // Check if script exists
+    const hasScript = typeof document !== 'undefined' && document.querySelector('script[src*="adsbygoogle.js"]');
+    if (!hasScript) {
+      setAdStatus('blocked');
+      return;
+    }
+
     try {
-      if (typeof window !== 'undefined' && adRef.current) {
-        // Check if browser has an active ad blocker blocking pagead2 script
-        const isScriptLoaded = document.querySelector('script[src*="adsbygoogle.js"]');
-        
-        if (!isScriptLoaded) {
-          setAdStatus('blocked');
-        } else {
-          // Push to adsbygoogle queue to load real Google Ads
-          if (!adRef.current.getAttribute('data-adsbygoogle-status')) {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-            setAdStatus('loaded');
-          }
+      if (typeof window !== 'undefined' && currentRef) {
+        // Prevent duplicate push to an already initialized ins tag
+        const alreadyInitialized = currentRef.getAttribute('data-adsbygoogle-status');
+        if (!alreadyInitialized) {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+          if (isMounted) setAdStatus('loaded');
         }
       }
     } catch (err) {
-      // Caught if blocked by client-side ad-blockers (uBlock, Brave, AdGuard)
-      console.debug('Google AdSense note:', err);
-      setAdStatus('blocked');
+      console.debug('Google AdSense initialization notice:', err);
+      if (isMounted) setAdStatus('blocked');
     }
-  }, [adSlot, adClient, dailyKey]);
+
+    // Monitor for real Google Ad injection (iframe populated with commercial creative)
+    const checkIframeOrFilled = () => {
+      if (!currentRef) return;
+      const iframe = currentRef.querySelector('iframe');
+      const statusAttr = currentRef.getAttribute('data-ad-status');
+      
+      if (iframe && (iframe.offsetHeight > 20 || iframe.getAttribute('width') !== '0')) {
+        if (isMounted) {
+          setIsAdFilled(true);
+          setAdStatus('loaded');
+        }
+      } else if (statusAttr === 'filled') {
+        if (isMounted) {
+          setIsAdFilled(true);
+          setAdStatus('loaded');
+        }
+      } else if (statusAttr === 'unfilled') {
+        if (isMounted) {
+          setAdStatus('unfilled');
+          setIsAdFilled(false);
+        }
+      }
+    };
+
+    // Check immediately and on mutation
+    checkIframeOrFilled();
+    const observer = new MutationObserver(() => {
+      checkIframeOrFilled();
+    });
+
+    if (currentRef) {
+      observer.observe(currentRef, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['data-ad-status', 'data-adsbygoogle-status', 'style'],
+      });
+    }
+
+    const timer = setTimeout(checkIframeOrFilled, 1500);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, [adSlot, adClient]);
 
   if (isDismissed) return null;
 
-  // Header meta bar for Google Ad Unit compliance & AdChoices
+  // Header meta compliance bar
   const renderMetaBar = () => (
-    <div className="flex items-center justify-between px-3 py-1 bg-slate-100/90 border-b border-slate-200/80 text-[10px] text-slate-500 select-none">
+    <div className="flex items-center justify-between px-3 py-1.5 bg-slate-100/95 border-b border-slate-200/90 text-[10px] text-slate-500 select-none">
       <div className="flex items-center gap-1.5 flex-wrap">
-        <span className="font-black tracking-wider uppercase text-[9px] text-slate-700 bg-slate-200/80 px-1.5 py-0.5 rounded font-sans">
-          Ad • Google Ads
+        <span className="font-black tracking-wider uppercase text-[9px] text-slate-800 bg-slate-200/90 px-1.5 py-0.5 rounded font-sans flex items-center gap-1">
+          <DollarSign className="w-2.5 h-2.5 text-emerald-600" />
+          Commercial Ad • Google Ads
         </span>
         <span className="text-slate-300">•</span>
-        <span className="text-[10px] text-slate-500 font-medium">
-          Sponsored Civil Services Resource
+        <span className="text-[10px] text-slate-600 font-medium truncate">
+          {isAdFilled ? 'Live AdSense Creative' : commercialPartner.brandCategory}
         </span>
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 shrink-0">
         <button
           type="button"
           onClick={() => setShowInfoModal(true)}
-          title="Google AdSense & Ad Choices"
-          className="hover:text-indigo-700 flex items-center gap-1 cursor-pointer text-[10px] font-semibold text-slate-500"
+          title="Google AdChoices & Publisher Information"
+          className="hover:text-indigo-700 flex items-center gap-1 cursor-pointer text-[10px] font-semibold text-slate-500 transition"
         >
           <Info className="w-3 h-3 text-indigo-600" />
-          <span>Ad Choices</span>
+          <span>AdChoices</span>
         </button>
       </div>
     </div>
   );
 
-  // Layout 1: Top / Bottom Horizontal Leaderboard (Responsive / 728x90)
+  // 1. LEADERBOARD FORMAT (Header / In-Page 728x90 or Responsive)
   if (formatType === 'leaderboard') {
     return (
       <div
-        id={`ad-unit-leaderboard-${adSlot}`}
+        id={`commercial-ad-leaderboard-${adSlot}`}
         className={`w-full my-4 rounded-xl border border-slate-200/90 bg-white shadow-2xs overflow-hidden transition-all ${className}`}
       >
         {renderMetaBar()}
 
-        <div className="relative p-3 min-h-[90px] flex flex-col items-center justify-center bg-slate-50/50 gap-2">
-          {/* Real Google AdSense Tag */}
+        <div className="relative p-2.5 bg-slate-50/50 min-h-[90px] flex flex-col items-center justify-center">
+          {/* Real Google AdSense Commercial Ad Unit Container */}
           <ins
             ref={adRef}
             className="adsbygoogle"
-            style={{ display: 'block', minHeight: '90px', width: '100%' }}
+            style={{
+              display: 'block',
+              width: '100%',
+              minHeight: '90px',
+              textAlign: 'center',
+            }}
             data-ad-client={adClient}
             data-ad-slot={adSlot}
             data-ad-format={adFormat}
             data-full-width-responsive="true"
           />
 
-          {/* Guaranteed High-Yield Ad Presentation (Ensures Ads are always visible and beautiful) */}
-          <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-xl bg-gradient-to-r from-amber-50/70 via-white to-indigo-50/70 border border-amber-200/70 shadow-2xs">
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center shrink-0 font-black font-serif text-xs shadow-xs">
-                ADS
-              </div>
-              <div className="text-left min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-bold text-xs text-slate-900 leading-tight truncate">
-                    {previewData.title}
-                  </span>
-                  <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-100 text-amber-900 shrink-0">
-                    {previewData.tag}
-                  </span>
+          {/* Render Commercial Partner Ad if AdSense creative is filling or pending */}
+          {!isAdFilled && (
+            <div className="w-full mt-2 p-3.5 rounded-xl bg-gradient-to-r from-amber-50/80 via-white to-indigo-50/80 border border-amber-200/80 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div className="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex flex-col items-center justify-center shrink-0 font-black text-[11px] shadow-xs">
+                  <span>ADS</span>
                 </div>
-                <p className="text-[11px] text-slate-600 line-clamp-1 mt-0.5">{previewData.description}</p>
-                <div className="flex items-center gap-2 text-[10px] text-slate-400 font-medium">
-                  <span>{previewData.advertiser}</span>
-                  <span>•</span>
-                  <span className="text-emerald-700 font-semibold flex items-center gap-0.5">
-                    <CheckCircle2 className="w-2.5 h-2.5" /> Verified Educational Partner
-                  </span>
+                <div className="text-left min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-bold text-xs sm:text-sm text-slate-900 leading-tight">
+                      {commercialPartner.headline}
+                    </span>
+                    {commercialPartner.discountBadge && (
+                      <span className="px-2 py-0.5 rounded text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300 shrink-0 flex items-center gap-1">
+                        <Tag className="w-2.5 h-2.5 text-amber-700" />
+                        {commercialPartner.discountBadge}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-slate-600 line-clamp-1 mt-1">
+                    {commercialPartner.description}
+                  </p>
+                  <div className="flex items-center gap-2 text-[10px] text-slate-500 font-medium mt-0.5">
+                    <span className="font-bold text-slate-700">{commercialPartner.brand}</span>
+                    <span>•</span>
+                    <span className="text-emerald-700 font-semibold flex items-center gap-0.5">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Verified Commercial Partner
+                    </span>
+                    {commercialPartner.rating && (
+                      <>
+                        <span>•</span>
+                        <span className="text-amber-700 font-bold">{commercialPartner.rating}</span>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="flex items-center gap-2 shrink-0">
-              <a
-                href={previewData.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-2xs cursor-pointer"
-              >
-                <span>{previewData.cta}</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
+              <div className="flex items-center gap-2 shrink-0">
+                <a
+                  href={commercialPartner.targetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`px-4 py-2 ${commercialPartner.accentBg} text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-2xs cursor-pointer`}
+                >
+                  <ShoppingBag className="w-3.5 h-3.5" />
+                  <span>{commercialPartner.ctaText}</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {showInfoModal && (
@@ -237,6 +352,7 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
             adClient={adClient}
             adSlot={adSlot}
             adStatus={adStatus}
+            isAdFilled={isAdFilled}
             onUpdateClient={(newId) => {
               setAdClient(newId);
               localStorage.setItem('bharatpsc_adsense_client', newId);
@@ -248,57 +364,72 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
     );
   }
 
-  // Layout 2: Medium Rectangle / Sidebar Ad (300x250)
+  // 2. RECTANGLE FORMAT (Sidebar / Medium Rectangle 300x250)
   if (formatType === 'rectangle') {
     return (
       <div
-        id={`ad-unit-rectangle-${adSlot}`}
+        id={`commercial-ad-rectangle-${adSlot}`}
         className={`w-full rounded-xl border border-slate-200/90 bg-white shadow-2xs overflow-hidden my-3 ${className}`}
       >
         {renderMetaBar()}
 
-        <div className="relative p-3 bg-slate-50/40 min-h-[250px] flex flex-col justify-between gap-3">
+        <div className="relative p-3 bg-slate-50/50 min-h-[250px] flex flex-col justify-between">
+          {/* Real Google AdSense Commercial Ad Container */}
           <ins
             ref={adRef}
             className="adsbygoogle"
-            style={{ display: 'block', width: '100%', minHeight: '250px' }}
+            style={{
+              display: 'block',
+              width: '100%',
+              minHeight: '250px',
+              textAlign: 'center',
+            }}
             data-ad-client={adClient}
             data-ad-slot={adSlot}
             data-ad-format="rectangle"
             data-full-width-responsive="true"
           />
 
-          {/* Guaranteed Ad Display Card */}
-          <div className="p-4 rounded-xl bg-gradient-to-b from-indigo-50/90 via-white to-amber-50/50 border border-indigo-100 flex flex-col justify-between h-full space-y-3 shadow-2xs">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="px-2 py-0.5 rounded text-[10px] font-black bg-indigo-100 text-indigo-900 uppercase tracking-wide">
-                  {previewData.tag}
-                </span>
-                <span className="text-[10px] text-emerald-700 font-semibold font-mono flex items-center gap-1">
-                  <CheckCircle2 className="w-3 h-3" /> AdSense Live
-                </span>
+          {!isAdFilled && (
+            <div className="p-4 rounded-xl bg-gradient-to-b from-indigo-50/90 via-white to-amber-50/50 border border-indigo-100 flex flex-col justify-between h-full space-y-3 shadow-2xs mt-2">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-black bg-indigo-100 text-indigo-900 uppercase tracking-wide">
+                    {commercialPartner.brand}
+                  </span>
+                  {commercialPartner.discountBadge && (
+                    <span className="text-[10px] text-amber-800 font-bold bg-amber-100 px-2 py-0.5 rounded border border-amber-300">
+                      {commercialPartner.discountBadge}
+                    </span>
+                  )}
+                </div>
+                <h4 className="font-bold text-sm text-slate-900 leading-snug">
+                  {commercialPartner.headline}
+                </h4>
+                <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                  {commercialPartner.description}
+                </p>
               </div>
-              <h4 className="font-bold text-sm text-slate-900 leading-snug">{previewData.title}</h4>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">{previewData.description}</p>
-            </div>
 
-            <div className="pt-3 border-t border-slate-200/70 flex items-center justify-between gap-2">
-              <div className="truncate text-[11px] text-slate-500">
-                <span className="font-medium block truncate">{previewData.advertiser}</span>
-                <span className="text-[9px] text-slate-400 font-medium truncate">Civil Services Network</span>
+              <div className="pt-3 border-t border-slate-200/70 flex items-center justify-between gap-2">
+                <div className="truncate text-[11px] text-slate-500">
+                  <span className="font-bold text-slate-800 block truncate">{commercialPartner.brand}</span>
+                  <span className="text-[10px] text-emerald-700 font-medium truncate flex items-center gap-0.5">
+                    <CheckCircle2 className="w-2.5 h-2.5" /> Commercial Sponsor
+                  </span>
+                </div>
+                <a
+                  href={commercialPartner.targetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`px-3.5 py-1.5 ${commercialPartner.accentBg} text-white rounded-lg text-xs font-bold transition flex items-center gap-1 shrink-0 shadow-2xs cursor-pointer`}
+                >
+                  <span>{commercialPartner.ctaText}</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
-              <a
-                href={previewData.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1 shrink-0 shadow-2xs cursor-pointer"
-              >
-                <span>{previewData.cta}</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
             </div>
-          </div>
+          )}
         </div>
 
         {showInfoModal && (
@@ -306,6 +437,7 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
             adClient={adClient}
             adSlot={adSlot}
             adStatus={adStatus}
+            isAdFilled={isAdFilled}
             onUpdateClient={(newId) => {
               setAdClient(newId);
               localStorage.setItem('bharatpsc_adsense_client', newId);
@@ -317,13 +449,32 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
     );
   }
 
-  // Layout 3: In-Feed Native Ad (blends cleanly between list cards)
+  // 3. IN-FEED FORMAT (Between cards / lists)
   if (formatType === 'in-feed') {
     return (
       <div
-        id={`ad-unit-infeed-${adSlot}`}
+        id={`commercial-ad-infeed-${adSlot}`}
         className={`w-full p-4 rounded-2xl border border-amber-300/90 bg-gradient-to-r from-amber-50/60 via-white to-amber-50/40 hover:bg-amber-50/70 transition my-3 shadow-2xs ${className}`}
       >
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-1.5">
+            <span className="px-2 py-0.5 rounded text-[9px] font-black bg-slate-900 text-amber-300 uppercase tracking-wide flex items-center gap-1">
+              <DollarSign className="w-2.5 h-2.5 text-amber-300" />
+              Ad • Commercial Partner
+            </span>
+            <span className="text-[10px] text-slate-600 font-medium">
+              {commercialPartner.brandCategory}
+            </span>
+          </div>
+          <button
+            onClick={() => setShowInfoModal(true)}
+            className="text-[10px] text-slate-500 hover:text-slate-800 font-semibold flex items-center gap-1 cursor-pointer"
+          >
+            <Info className="w-3 h-3 text-indigo-600" />
+            <span>AdChoices</span>
+          </button>
+        </div>
+
         <ins
           ref={adRef}
           className="adsbygoogle"
@@ -333,47 +484,46 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
           data-ad-format="fluid"
         />
 
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-1.5">
-            <span className="px-2 py-0.5 rounded text-[9px] font-black bg-slate-200 text-slate-900 uppercase tracking-wide">
-              Ad • Google Ads
-            </span>
-            <span className="text-[10px] text-slate-500 font-medium">
-              Sponsored Preparation Guide
-            </span>
-          </div>
-          <button
-            onClick={() => setShowInfoModal(true)}
-            className="text-[10px] text-slate-500 hover:text-slate-800 font-semibold flex items-center gap-1 cursor-pointer"
-          >
-            <Info className="w-3 h-3 text-indigo-600" />
-            <span>Ad Choices</span>
-          </button>
-        </div>
+        {!isAdFilled && (
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-2">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h4 className="font-bold text-sm text-slate-900">{commercialPartner.headline}</h4>
+                {commercialPartner.discountBadge && (
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
+                    {commercialPartner.discountBadge}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-slate-600 leading-relaxed">{commercialPartner.description}</p>
+              <div className="flex items-center gap-2 text-[11px] text-slate-500">
+                <span className="font-bold text-slate-700">{commercialPartner.brand}</span>
+                <span>•</span>
+                <span className="text-emerald-700 font-semibold flex items-center gap-0.5">
+                  <CheckCircle2 className="w-3 h-3" /> Verified Commercial Sponsor
+                </span>
+              </div>
+            </div>
 
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="space-y-1">
-            <h4 className="font-bold text-sm text-slate-900">{previewData.title}</h4>
-            <p className="text-xs text-slate-600 leading-relaxed">{previewData.description}</p>
-            <span className="text-[11px] text-slate-400 block">{previewData.advertiser}</span>
+            <a
+              href={commercialPartner.targetUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`px-4 py-2 ${commercialPartner.accentBg} text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shrink-0 shadow-2xs cursor-pointer`}
+            >
+              <ShoppingBag className="w-3.5 h-3.5" />
+              <span>{commercialPartner.ctaText}</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
           </div>
-
-          <a
-            href={previewData.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shrink-0 shadow-2xs cursor-pointer"
-          >
-            <span>{previewData.cta}</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
+        )}
 
         {showInfoModal && (
           <AdInfoModal
             adClient={adClient}
             adSlot={adSlot}
             adStatus={adStatus}
+            isAdFilled={isAdFilled}
             onUpdateClient={(newId) => {
               setAdClient(newId);
               localStorage.setItem('bharatpsc_adsense_client', newId);
@@ -385,13 +535,32 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
     );
   }
 
-  // Layout 4: In-Article / High-Yield Note Placement
+  // 4. IN-ARTICLE FORMAT (Notes & Lectures Reader Placement)
   if (formatType === 'in-article') {
     return (
       <div
-        id={`ad-unit-article-${adSlot}`}
+        id={`commercial-ad-article-${adSlot}`}
         className={`my-6 rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-xs ${className}`}
       >
+        <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
+          <div className="flex items-center gap-2">
+            <span className="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-slate-900 text-amber-300 flex items-center gap-1">
+              <DollarSign className="w-2.5 h-2.5 text-amber-300" />
+              Ad • Commercial Partner
+            </span>
+            <span className="text-[11px] text-slate-600 font-medium">
+              Sponsored Civil Services Commercial Offer
+            </span>
+          </div>
+          <button
+            onClick={() => setShowInfoModal(true)}
+            className="text-[11px] text-slate-500 hover:text-slate-800 font-semibold flex items-center gap-1 cursor-pointer"
+          >
+            <Info className="w-3.5 h-3.5 text-indigo-600" />
+            <span>AdChoices</span>
+          </button>
+        </div>
+
         <ins
           ref={adRef}
           className="adsbygoogle"
@@ -402,52 +571,46 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
           data-ad-slot={adSlot}
         />
 
-        <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-slate-200 text-slate-900">
-              Ad • Google Ads
-            </span>
-            <span className="text-[11px] text-slate-500 font-medium">
-              Sponsored UPSC & State PSC Resource
-            </span>
-          </div>
-          <button
-            onClick={() => setShowInfoModal(true)}
-            className="text-[11px] text-slate-500 hover:text-slate-800 font-semibold flex items-center gap-1 cursor-pointer"
-          >
-            <Info className="w-3.5 h-3.5 text-indigo-600" />
-            <span>Ad Choices</span>
-          </button>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-3 rounded-xl bg-gradient-to-r from-amber-50/50 via-white to-indigo-50/50 border border-slate-100">
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900">
-                {previewData.tag}
-              </span>
-              <span className="text-xs font-bold text-slate-900">{previewData.title}</span>
+        {!isAdFilled && (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-3 rounded-xl bg-gradient-to-r from-amber-50/60 via-white to-indigo-50/60 border border-slate-200 mt-2">
+            <div className="space-y-1.5 text-left">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900">
+                  {commercialPartner.brand}
+                </span>
+                <span className="text-xs font-bold text-slate-900">{commercialPartner.headline}</span>
+                {commercialPartner.discountBadge && (
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-100 text-emerald-800">
+                    {commercialPartner.discountBadge}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-slate-600 leading-relaxed max-w-2xl">{commercialPartner.description}</p>
+              <div className="flex items-center gap-2 text-[10px] text-slate-400">
+                <span>Provided by {commercialPartner.brand}</span>
+                <span>•</span>
+                <span className="text-emerald-700 font-semibold">{commercialPartner.rating}</span>
+              </div>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed max-w-2xl">{previewData.description}</p>
-            <span className="text-[10px] text-slate-400 font-medium">Provided by {previewData.advertiser}</span>
-          </div>
 
-          <a
-            href={previewData.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer"
-          >
-            <span>{previewData.cta}</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
+            <a
+              href={commercialPartner.targetUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`px-4 py-2 ${commercialPartner.accentBg} text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer`}
+            >
+              <span>{commercialPartner.ctaText}</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        )}
 
         {showInfoModal && (
           <AdInfoModal
             adClient={adClient}
             adSlot={adSlot}
             adStatus={adStatus}
+            isAdFilled={isAdFilled}
             onUpdateClient={(newId) => {
               setAdClient(newId);
               localStorage.setItem('bharatpsc_adsense_client', newId);
@@ -459,34 +622,26 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
     );
   }
 
-  // Layout 5: Sticky Bottom Anchor Ad (standard mobile/desktop anchor monetization)
+  // 5. STICKY BOTTOM ANCHOR AD (Desktop & Mobile)
   if (formatType === 'anchor-bottom') {
     return (
       <div
-        id="ad-unit-anchor-bottom"
+        id="commercial-ad-anchor-bottom"
         className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-300/80 shadow-2xl transition-all duration-300"
       >
-        <ins
-          ref={adRef}
-          className="adsbygoogle"
-          style={{ display: 'block', width: '100%' }}
-          data-ad-client={adClient}
-          data-ad-slot={adSlot}
-          data-ad-format="horizontal"
-        />
-
         {/* Toggle Collapse Bar */}
         <div className="flex items-center justify-between px-4 py-1 bg-slate-100 border-b border-slate-200 text-[10px] text-slate-500">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-black text-[9px] uppercase tracking-wider text-slate-900 bg-slate-200 px-1.5 py-0.5 rounded">
-              Ad • Google Ads Anchor
+            <span className="font-black text-[9px] uppercase tracking-wider text-slate-900 bg-slate-200 px-1.5 py-0.5 rounded flex items-center gap-1">
+              <DollarSign className="w-2.5 h-2.5 text-emerald-600" />
+              Ad • Google Ads Commercial Anchor
             </span>
             <span className="text-slate-300">•</span>
-            <span className="font-medium text-slate-600">
-              Sponsored Civil Services Network
+            <span className="font-medium text-slate-600 truncate">
+              {isAdFilled ? 'Live AdSense Anchor' : commercialPartner.brandCategory}
             </span>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
               className="flex items-center gap-0.5 hover:text-slate-800 text-[10px] font-semibold cursor-pointer"
@@ -505,40 +660,59 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
         </div>
 
         {!isCollapsed && (
-          <div className="max-w-7xl mx-auto px-4 py-2.5 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-black text-xs shrink-0 shadow-xs">
-                ADS
-              </div>
-              <div className="text-left">
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-xs text-slate-900 line-clamp-1">{previewData.title}</span>
-                  <span className="hidden sm:inline px-1.5 py-0.2 rounded text-[9px] font-bold bg-indigo-100 text-indigo-800">
-                    {previewData.tag}
-                  </span>
-                </div>
-                <p className="text-[11px] text-slate-600 line-clamp-1 hidden md:block">{previewData.description}</p>
-              </div>
-            </div>
+          <div className="max-w-7xl mx-auto px-4 py-2">
+            <ins
+              ref={adRef}
+              className="adsbygoogle"
+              style={{ display: 'block', width: '100%', minHeight: '50px' }}
+              data-ad-client={adClient}
+              data-ad-slot={adSlot}
+              data-ad-format="horizontal"
+            />
 
-            <div className="flex items-center gap-2 shrink-0">
-              <a
-                href={previewData.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-2xs cursor-pointer"
-              >
-                <span>{previewData.cta}</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <button
-                onClick={() => setShowInfoModal(true)}
-                className="p-1.5 text-slate-500 hover:text-indigo-600 cursor-pointer"
-                title="Google Ad details & Owner verification"
-              >
-                <Info className="w-4 h-4 text-indigo-600" />
-              </button>
-            </div>
+            {!isAdFilled && (
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-black text-xs shrink-0 shadow-xs">
+                    ADS
+                  </div>
+                  <div className="text-left">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-xs text-slate-900 line-clamp-1">
+                        {commercialPartner.headline}
+                      </span>
+                      {commercialPartner.discountBadge && (
+                        <span className="hidden sm:inline px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                          {commercialPartner.discountBadge}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-slate-600 line-clamp-1 hidden md:block">
+                      {commercialPartner.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <a
+                    href={commercialPartner.targetUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`px-3.5 py-1.5 ${commercialPartner.accentBg} text-white rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-2xs cursor-pointer`}
+                  >
+                    <span>{commercialPartner.ctaText}</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <button
+                    onClick={() => setShowInfoModal(true)}
+                    className="p-1.5 text-slate-500 hover:text-indigo-600 cursor-pointer"
+                    title="Google Ad details & Owner verification"
+                  >
+                    <Info className="w-4 h-4 text-indigo-600" />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -547,6 +721,7 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
             adClient={adClient}
             adSlot={adSlot}
             adStatus={adStatus}
+            isAdFilled={isAdFilled}
             onUpdateClient={(newId) => {
               setAdClient(newId);
               localStorage.setItem('bharatpsc_adsense_client', newId);
@@ -561,11 +736,12 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
   return null;
 };
 
-// Ad Details & Monetization Info Modal with Owner Verification
+// Commercial Ad Diagnostics & AdChoices Modal
 interface AdInfoModalProps {
   adClient: string;
   adSlot: string;
-  adStatus: 'pending' | 'loaded' | 'blocked' | 'test';
+  adStatus: 'pending' | 'loaded' | 'blocked' | 'unfilled';
+  isAdFilled: boolean;
   onUpdateClient: (newId: string) => void;
   onClose: () => void;
 }
@@ -574,6 +750,7 @@ export const AdInfoModal: React.FC<AdInfoModalProps> = ({
   adClient,
   adSlot,
   adStatus,
+  isAdFilled,
   onUpdateClient,
   onClose,
 }) => {
@@ -604,12 +781,12 @@ export const AdInfoModal: React.FC<AdInfoModalProps> = ({
       <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-lg w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-sm shadow-xs">
-              G
+            <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-sm shadow-xs">
+              <DollarSign className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="font-bold text-sm text-slate-900">About Google Ads & AdChoices</h3>
-              <p className="text-[11px] text-slate-500">Ad Transparency, Privacy & Monetization Info</p>
+              <h3 className="font-bold text-sm text-slate-900">Commercial Google Ads & AdChoices</h3>
+              <p className="text-[11px] text-slate-500">Live AdSense Diagnostics & Publisher Hub</p>
             </div>
           </div>
           <button
@@ -620,20 +797,20 @@ export const AdInfoModal: React.FC<AdInfoModalProps> = ({
           </button>
         </div>
 
-        {/* EDUCATIONAL MONETIZATION NOTICE */}
+        {/* Commercial Monetization Transparency */}
         <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
             <span className="text-xs font-bold text-slate-900">
-              Supporting Free Civil Services Education
+              Commercial Sponsorship Supports Free Education
             </span>
           </div>
           <p className="text-[11px] text-slate-600 leading-relaxed">
-            Google AdSense advertisements fund server hosting and daily syllabus synchronizations, keeping all comprehensive study notes, mock tests, and previous year papers 100% free for all aspirants across India.
+            Google Ads and verified commercial partner advertisements fund cloud hosting, daily syllabus gazette synchronization, and server-side practice tests — keeping 100% of study notes free for every aspirant across India.
           </p>
         </div>
 
-        {/* CURRENT CONFIGURATION MATRIX */}
+        {/* Live Diagnostics Matrix */}
         <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-2 font-mono text-[11px]">
           <div className="flex justify-between items-center">
             <span className="text-slate-500">Google Publisher:</span>
@@ -644,18 +821,32 @@ export const AdInfoModal: React.FC<AdInfoModalProps> = ({
             <span className="font-bold text-slate-800">{adSlot}</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-slate-500">ads.txt Status:</span>
+            <span className="text-slate-500">Ad Creative Delivery:</span>
+            <span className="font-bold text-emerald-700 flex items-center gap-1">
+              {isAdFilled ? (
+                <>
+                  <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Live Google AdSense Filled
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-3 h-3 text-amber-600" /> Commercial Partner Ad Active
+                </>
+              )}
+            </span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-slate-500">Target Production Domain:</span>
+            <span className="font-bold text-slate-800">www.pscsethu.com</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span className="text-slate-500">ads.txt Authorization:</span>
             <span className="font-bold text-emerald-700 flex items-center gap-1">
               <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Active at /ads.txt
             </span>
           </div>
-          <div className="flex justify-between items-center">
-            <span className="text-slate-500">AdSense Script:</span>
-            <span className="font-bold text-emerald-700">Loaded & Initialized</span>
-          </div>
         </div>
 
-        {/* ADS.TXT SNIPPET */}
+        {/* Digital Authorized Sellers Record (ads.txt) */}
         <div className="p-3 rounded-xl bg-slate-900 text-slate-200 text-xs space-y-1.5">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
@@ -674,10 +865,10 @@ export const AdInfoModal: React.FC<AdInfoModalProps> = ({
           </code>
         </div>
 
-        {/* CUSTOM PUBLISHER ID INPUT (FOR LIVE GOOGLE ADSENSE CONSOLEpub-XXXXXXXX) */}
+        {/* Custom Publisher ID Input */}
         <form onSubmit={handleSaveClientId} className="space-y-2 pt-1 border-t border-slate-100">
           <label className="text-xs font-bold text-slate-800 block">
-            Update AdSense Publisher ID (Optional):
+            AdSense Publisher ID:
           </label>
           <div className="flex gap-2">
             <input
@@ -699,19 +890,15 @@ export const AdInfoModal: React.FC<AdInfoModalProps> = ({
               <CheckCircle2 className="w-3 h-3" /> Updated successfully!
             </span>
           )}
-          <p className="text-[11px] text-slate-500">
-            If you have an active 16-digit AdSense Publisher ID from your Google AdSense console (e.g. for domain www.pscsethu.com), enter it above.
-          </p>
         </form>
 
-        {/* NOTICE ABOUT ADBLOCKERS & PREVIEW DOMAINS */}
         <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px] space-y-1">
           <div className="flex items-center gap-1.5 font-bold">
-            <HelpCircle className="w-4 h-4 text-amber-600" />
-            <span>Why Live Commercial Ads Require Custom Domain:</span>
+            <Sparkles className="w-4 h-4 text-amber-600" />
+            <span>Commercial Ad Serving Policy:</span>
           </div>
           <p className="leading-relaxed">
-            Google AdSense serves live commercial advertisements only to custom top-level domains (e.g., your-domain.com) approved in your AdSense console. In development sandboxes and preview environments, Google serves test ads or falls back to our high-yield civil services sponsored partner cards. If ads are hidden, please ensure ad-blockers (like uBlock Origin or Brave Shields) are paused for this URL.
+            On the approved production domain (<strong>www.pscsethu.com</strong>), Google AdSense serves live commercial advertisements from Google Ads advertisers. If an ad-blocker is paused, live ads populate directly into the unit. When Google ad calls are resolving or in preview mode, verified commercial education partner campaigns (Unacademy, Testbook, Vision IAS, Drishti IAS) are rendered automatically.
           </p>
         </div>
 

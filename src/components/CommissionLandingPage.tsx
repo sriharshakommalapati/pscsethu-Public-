@@ -24,7 +24,6 @@ import { CURATED_SUBJECTS } from '../data/curatedLectures';
 import { PREVIOUS_YEAR_PAPERS } from '../data/previousYearPapers';
 import { MOCK_TESTS } from '../data/mockTests';
 import { VideoLectureViewer } from './VideoLectureViewer';
-import { GoogleAdUnit } from './GoogleAdUnit';
 import { generateComprehensiveTopicNote } from '../utils/dailySyllabusEngine';
 import { DailySyllabusReviewModal } from './DailySyllabusReviewModal';
 
@@ -269,13 +268,6 @@ export const CommissionLandingPage: React.FC<CommissionLandingPageProps> = ({
         </button>
       </div>
 
-      {/* Google AdSense Leaderboard in Commission Portal */}
-      <GoogleAdUnit
-        formatType="leaderboard"
-        adSlot="5829103948"
-        label="SPONSORED STATE CIVIL SERVICES STUDY MATERIAL • GOOGLE ADS"
-      />
-
       {/* TAB 1: CURATED VIDEO LECTURES & 9-10 LINE NOTES EXPLORER */}
       {activeTab === 'lectures' && (
         <div className="space-y-6">
@@ -390,13 +382,6 @@ export const CommissionLandingPage: React.FC<CommissionLandingPageProps> = ({
                 onToggleBookmark={onToggleBookmarkSubtopic}
                 onSaveToPersonalNotes={onSaveToPersonalNotes}
               />
-
-              {/* In-Article Google Ad Unit right below the high-yield note */}
-              <GoogleAdUnit
-                formatType="in-article"
-                adSlot="4920194830"
-                label="SPONSORED HIGH-YIELD CIVIL SERVICES MATERIAL • GOOGLE ADS"
-              />
             </>
           ) : (
             <div className="p-8 text-center bg-white rounded-2xl border border-slate-200">
@@ -473,13 +458,6 @@ export const CommissionLandingPage: React.FC<CommissionLandingPageProps> = ({
                 <span>Open Notes Hub</span>
               </button>
             </div>
-
-            {/* Google Ad Unit inside Syllabus Tab */}
-            <GoogleAdUnit
-              formatType="leaderboard"
-              adSlot="5019283746"
-              label="SPONSORED SYLLABUS REFERENCE BOOKS • GOOGLE ADS"
-            />
 
             <div className="space-y-6">
               {syllabusStages.map((stage, sIdx) => (

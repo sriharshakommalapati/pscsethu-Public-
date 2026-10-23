@@ -18,7 +18,6 @@ import {
 import { EXAM_DATES } from '../data/examDates';
 import { COMMISSIONS } from '../data/commissions';
 import { ExamDateInfo } from '../types';
-import { GoogleAdUnit } from './GoogleAdUnit';
 
 interface ExamDatesViewProps {
   onSelectCommission: (commissionId: string) => void;
@@ -192,13 +191,6 @@ export const ExamDatesView: React.FC<ExamDatesViewProps> = ({ onSelectCommission
         </div>
       </div>
 
-      {/* Google AdSense Leaderboard in Exam Dates */}
-      <GoogleAdUnit
-        formatType="leaderboard"
-        adSlot="6019284758"
-        label="SPONSORED EXAM PREPARATION & TEST ALERTS • GOOGLE ADS"
-      />
-
       {/* Exam Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredExams.map((exam, idx) => {
@@ -208,19 +200,10 @@ export const ExamDatesView: React.FC<ExamDatesViewProps> = ({ onSelectCommission
           const isAppClosed = appDaysRemaining < 0;
 
           return (
-            <React.Fragment key={exam.id}>
-              {idx === 3 && (
-                <div className="col-span-full">
-                  <GoogleAdUnit
-                    formatType="in-feed"
-                    adSlot="7102938461"
-                    label="SPONSORED CIVIL SERVICES FAST-TRACK BATCH"
-                  />
-                </div>
-              )}
-              <div
-                className="bg-white rounded-2xl border border-slate-200 hover:border-indigo-300 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group"
-              >
+            <div
+              key={exam.id}
+              className="bg-white rounded-2xl border border-slate-200 hover:border-indigo-300 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group"
+            >
               {/* Card Header */}
               <div className="p-5">
                 <div className="flex items-start justify-between gap-2 mb-3">
@@ -347,7 +330,6 @@ export const ExamDatesView: React.FC<ExamDatesViewProps> = ({ onSelectCommission
                 </div>
               </div>
             </div>
-          </React.Fragment>
         );
       })}
       </div>
