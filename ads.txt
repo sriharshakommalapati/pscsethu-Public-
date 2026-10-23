@@ -1,0 +1,5 @@
+# Google AdSense Authorized Digital Sellers (ads.txt)
+# Property: PSC Sethu (BharatPSC) - All India State PSC & UPSC Civil Services Study Repository
+# Domains: www.pscsethu.com
+
+google.com, pub-9463525929730000, DIRECT, f08c47fec0942fa0
