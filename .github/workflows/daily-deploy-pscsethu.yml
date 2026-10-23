@@ -73,6 +73,8 @@ jobs:
           npm run build
           # Ensure canonical CNAME exists in dist
           echo "www.pscsethu.com" > dist/CNAME
+          # Disable Jekyll so Vite assets are served directly
+          touch dist/.nojekyll
           # Ensure ads.txt is present for Google AdSense monetization
           cp public/ads.txt dist/ads.txt || true
 
