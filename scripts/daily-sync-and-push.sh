@@ -12,7 +12,7 @@ set -e
 GITHUB_TOKEN="${GITHUB_PAT:-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}"
 GODADDY_TOKEN="${GODADDY_PAT:-gd_pat_Linut8JGqWaVVlAwSAVKNzBdB0dqbCFWisBPrqQxC5g_5996d4e9}"
 REPO_OWNER="sriharshakommalapati"
-REPO_NAME="pscsethu"
+REPO_NAME="${GITHUB_REPO:-pscsethu-Public-}"
 TARGET_DOMAIN="www.pscsethu.com"
 
 echo "============================================================"
