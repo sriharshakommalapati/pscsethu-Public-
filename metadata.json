@@ -1,0 +1,8 @@
+{
+  "name": "BharatPSC - UPSC & State PSC Study Portal",
+  "description": "Comprehensive learning portal for UPSC, APPSC, TGSPC and all State Public Service Commissions across India with syllabus, PYQs, interactive mock tests, curated textbook study notes with 10-point revision digests, exam deadlines, professor notes, and Google AdSense monetization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

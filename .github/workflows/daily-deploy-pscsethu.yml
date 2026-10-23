@@ -1,0 +1,100 @@
+name: Daily Deploy to PSCsethu.com
+
+on:
+  schedule:
+    # Runs daily at 00:30 UTC (06:00 AM IST)
+    - cron: '30 0 * * *'
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+    inputs:
+      target_domain:
+        description: 'Target Deployment Domain (Must be www.pscsethu.com)'
+        required: true
+        default: 'www.pscsethu.com'
+
+# Explicit Security & Deployment Guard:
+# DEPLOY ONLY TO PSCSETHU.COM - STRICTLY PROHIBIT pscsethu.in
+env:
+  ALLOWED_DOMAIN: 'www.pscsethu.com'
+  FORBIDDEN_DOMAIN: 'www.pscsethu.in'
+  NODE_VERSION: '22.x'
+
+jobs:
+  validate-and-deploy:
+    name: Build & Deploy Daily to www.pscsethu.com
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Verify Domain Routing Policy
+        run: |
+          echo "=========================================================="
+          echo "Verifying Deployment Target Policy..."
+          TARGET="${{ github.event.inputs.target_domain || env.ALLOWED_DOMAIN }}"
+          echo "Target Domain: $TARGET"
+          
+          if [[ "$TARGET" == *"${{ env.FORBIDDEN_DOMAIN }}"* ]] || [[ "$TARGET" == *"pscsethu.in"* ]]; then
+            echo "❌ ERROR: Deployment to $TARGET is strictly disallowed by policy."
+            echo "Policy Rule: Do not deploy to www.pscsethu.in. Deploy only to www.pscsethu.com."
+            exit 1
+          fi
+          
+          if [[ "$TARGET" != *"${{ env.ALLOWED_DOMAIN }}"* ]] && [[ "$TARGET" != *"pscsethu.com"* ]]; then
+            echo "❌ ERROR: Unauthorized target domain '$TARGET'. Deployments are restricted only to www.pscsethu.com."
+            exit 1
+          fi
+
+          echo "✅ Target verified: Deployment authorized solely for www.pscsethu.com"
+          echo "=========================================================="
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci || npm install
+
+      - name: Code Quality & Type Checks
+        run: npm run lint
+
+      - name: Build Production Assets for www.pscsethu.com
+        run: |
+          npm run build
+          # Ensure CNAME is present in production distribution
+          echo "www.pscsethu.com" > dist/CNAME
+          # Ensure ads.txt is present in production distribution
+          cp public/ads.txt dist/ads.txt || true
+
+      - name: Verify Distribution Artifacts
+        run: |
+          if [ ! -f dist/index.html ]; then
+            echo "❌ ERROR: dist/index.html not found! Build failed."
+            exit 1
+          fi
+          echo "✅ Build completed successfully for www.pscsethu.com"
+          ls -lah dist/
+
+      - name: Deploy to Production (GitHub Pages / Custom Server for www.pscsethu.com)
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          cname: www.pscsethu.com
+          commit_message: "Automated daily deployment to www.pscsethu.com [skip ci]"
+
+      - name: Notify Deployment Success
+        if: success()
+        run: |
+          echo "🚀 Daily deployment to www.pscsethu.com completed successfully at $(date -u)"
