@@ -90,7 +90,10 @@ export const GoogleAdUnit: React.FC<GoogleAdUnitProps> = ({
   // Read configured AdSense Client ID (supporting custom override or default)
   const [adClient, setAdClient] = useState<string>(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('bharatpsc_adsense_client') || import.meta.env.VITE_GOOGLE_ADSENSE_CLIENT_ID || DEFAULT_ADSENSE_CLIENT_ID;
+      const stored = localStorage.getItem('bharatpsc_adsense_client');
+      if (stored && (stored.startsWith('ca-pub-') || stored.startsWith('pub-'))) {
+        return stored.startsWith('pub-') ? `ca-${stored}` : stored;
+      }
     }
     return DEFAULT_ADSENSE_CLIENT_ID;
   });
