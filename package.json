@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "deploy": "bash scripts/deploy-pscsethu.sh"
+    "deploy": "bash scripts/deploy-pscsethu.sh",
+    "sync:godaddy": "bash scripts/sync-godaddy-dns.sh",
+    "daily:sync": "bash scripts/daily-sync-and-push.sh"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

@@ -4,6 +4,7 @@ set -e
 # ==============================================================================
 # PSC SETHU PRODUCTION DEPLOYMENT RUNNER
 # Policy: Deploy ONLY to www.pscsethu.com. NEVER deploy to www.pscsethu.in.
+# Integrates: GoDaddy DNS Linking & Google Ads (AdSense pub-9463525929730000)
 # ==============================================================================
 
 TARGET_DOMAIN="www.pscsethu.com"
@@ -17,7 +18,7 @@ echo "============================================================"
 
 # Enforce strict policy check
 if [ "$1" == "$FORBIDDEN_DOMAIN" ] || [ "$1" == "pscsethu.in" ]; then
-  echo "❌ CRITICAL ERROR: Deploying to $FORBIDDEN_DOMAIN is prohibited by configuration."
+  echo "❌ CRITICAL ERROR: Deploying to $FORBIDDEN_DOMAIN is strictly prohibited by policy."
   echo "Exiting immediately."
   exit 1
 fi
@@ -37,6 +38,11 @@ if [ ! -f dist/index.html ]; then
   exit 1
 fi
 
-echo "🎉 Deployment artifacts ready for $TARGET_DOMAIN!"
+echo "🌐 5. Linking GoDaddy DNS records for $TARGET_DOMAIN..."
+if [ -f scripts/sync-godaddy-dns.sh ]; then
+  bash scripts/sync-godaddy-dns.sh
+fi
+
+echo "🎉 Deployment artifacts & DNS ready for $TARGET_DOMAIN!"
 echo "Target: https://$TARGET_DOMAIN"
 echo "============================================================"

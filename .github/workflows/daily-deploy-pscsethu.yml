@@ -1,8 +1,8 @@
-name: Daily Deploy to PSCsethu.com
+name: Daily Deploy to PSCsethu.com & GoDaddy Link
 
 on:
   schedule:
-    # Runs daily at 00:30 UTC (06:00 AM IST)
+    # Runs daily at 00:30 UTC (06:00 AM IST) for syllabus & content updates
     - cron: '30 0 * * *'
   push:
     branches:
@@ -24,7 +24,7 @@ env:
 
 jobs:
   validate-and-deploy:
-    name: Build & Deploy Daily to www.pscsethu.com
+    name: Build, Link GoDaddy DNS & Deploy Daily to www.pscsethu.com
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -35,21 +35,22 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Verify Domain Routing Policy
+      - name: Verify Strict Domain Routing Policy
         run: |
           echo "=========================================================="
           echo "Verifying Deployment Target Policy..."
           TARGET="${{ github.event.inputs.target_domain || env.ALLOWED_DOMAIN }}"
           echo "Target Domain: $TARGET"
           
+          # STRICT BLOCKER: Fail immediately if pscsethu.in is targeted
           if [[ "$TARGET" == *"${{ env.FORBIDDEN_DOMAIN }}"* ]] || [[ "$TARGET" == *"pscsethu.in"* ]]; then
-            echo "❌ ERROR: Deployment to $TARGET is strictly disallowed by policy."
-            echo "Policy Rule: Do not deploy to www.pscsethu.in. Deploy only to www.pscsethu.com."
+            echo "❌ CRITICAL ERROR: Deployment to $TARGET is strictly disallowed."
+            echo "Policy Rule: Do not deploy to www.pscsethu.in. Deploy ONLY to www.pscsethu.com."
             exit 1
           fi
           
           if [[ "$TARGET" != *"${{ env.ALLOWED_DOMAIN }}"* ]] && [[ "$TARGET" != *"pscsethu.com"* ]]; then
-            echo "❌ ERROR: Unauthorized target domain '$TARGET'. Deployments are restricted only to www.pscsethu.com."
+            echo "❌ ERROR: Unauthorized target domain '$TARGET'. Deployments are restricted exclusively to www.pscsethu.com."
             exit 1
           fi
 
@@ -71,21 +72,32 @@ jobs:
       - name: Build Production Assets for www.pscsethu.com
         run: |
           npm run build
-          # Ensure CNAME is present in production distribution
+          # Ensure canonical CNAME exists in dist
           echo "www.pscsethu.com" > dist/CNAME
-          # Ensure ads.txt is present in production distribution
+          # Ensure ads.txt is present for Google AdSense monetization
           cp public/ads.txt dist/ads.txt || true
 
-      - name: Verify Distribution Artifacts
+      - name: Verify Distribution Artifacts & Google Ads File
         run: |
           if [ ! -f dist/index.html ]; then
             echo "❌ ERROR: dist/index.html not found! Build failed."
             exit 1
           fi
-          echo "✅ Build completed successfully for www.pscsethu.com"
+          if [ ! -f dist/ads.txt ]; then
+            echo "⚠️ Warning: dist/ads.txt missing, re-creating..."
+            echo "google.com, pub-9463525929730000, DIRECT, f08c47fec0942fa0" > dist/ads.txt
+          fi
+          echo "✅ Production artifacts verified for www.pscsethu.com:"
           ls -lah dist/
 
-      - name: Deploy to Production (GitHub Pages / Custom Server for www.pscsethu.com)
+      - name: Link & Synchronize GoDaddy DNS
+        env:
+          GODADDY_PAT: ${{ secrets.GODADDY_PAT || 'gd_pat_Linut8JGqWaVVlAwSAVKNzBdB0dqbCFWisBPrqQxC5g_5996d4e9' }}
+        run: |
+          echo "🔗 Verifying & updating GoDaddy DNS records for pscsethu.com..."
+          bash scripts/sync-godaddy-dns.sh
+
+      - name: Deploy to GitHub Pages (www.pscsethu.com)
         uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         with:
@@ -97,4 +109,9 @@ jobs:
       - name: Notify Deployment Success
         if: success()
         run: |
-          echo "🚀 Daily deployment to www.pscsethu.com completed successfully at $(date -u)"
+          echo "=========================================================="
+          echo "🎉 Daily deployment to www.pscsethu.com completed successfully!"
+          echo "🌐 URL: https://www.pscsethu.com"
+          echo "💰 Google AdSense: pub-9463525929730000 active"
+          echo "⏱️ Time: $(date -u)"
+          echo "=========================================================="
